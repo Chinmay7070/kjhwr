@@ -6,7 +6,7 @@ accurate those forecasts have been, using only Elexon data (FUELHH actuals, WIND
 
 > **AI disclosure:** this project was built with AI assistance (Claude by Anthropic) for code generation and scaffolding.
 
-**Live app:** `kjhwr-nine.vercel.app`
+**Live app:** kjhwr-nine.vercel.app
 
 ## Key idea
 
