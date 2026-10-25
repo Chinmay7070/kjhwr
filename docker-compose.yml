@@ -1,0 +1,8 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        FETCH_DATA: "0"   # set to "1" to download real Elexon data during the build
+    ports:
+      - "8000:8000"

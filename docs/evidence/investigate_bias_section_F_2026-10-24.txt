@@ -1,0 +1,117 @@
+﻿source: elexon | scored hours: 744 | bias 1748 MW | mean actual 11284 MW | mean forecast 13031 MW
+
+==========================================================================
+A. LARGEST-ERROR HOURS (forecast too high)
+==========================================================================
+  2026-01-12T01:00:00Z  forecast   20942  actual   14072  error  +6870  lead 17.5h  issued 01-11T07:30
+  2026-01-12T00:00:00Z  forecast   20790  actual   14032  error  +6758  lead 16.5h  issued 01-11T07:30
+  2026-01-12T02:00:00Z  forecast   20876  actual   14120  error  +6756  lead 18.5h  issued 01-11T07:30
+  2026-01-12T03:00:00Z  forecast   20809  actual   14163  error  +6646  lead 19.5h  issued 01-11T07:30
+  2026-01-12T05:00:00Z  forecast   20583  actual   14022  error  +6561  lead 21.5h  issued 01-11T07:30
+  2026-01-12T04:00:00Z  forecast   20729  actual   14224  error  +6504  lead 20.5h  issued 01-11T07:30
+  2026-01-12T06:00:00Z  forecast   20435  actual   14038  error  +6396  lead 22.5h  issued 01-11T07:30
+  2026-01-28T04:00:00Z  forecast   11780  actual    5509  error  +6271  lead 20.5h  issued 01-27T07:30
+  2026-01-28T03:00:00Z  forecast   12620  actual    6372  error  +6248  lead 19.5h  issued 01-27T07:30
+  2026-01-27T23:00:00Z  forecast   17656  actual   11472  error  +6184  lead 39.5h  issued 01-26T07:30
+  2026-01-28T21:00:00Z  forecast   12032  actual    6022  error  +6010  lead 37.5h  issued 01-27T07:30
+  2026-01-11T23:00:00Z  forecast   20073  actual   14120  error  +5953  lead 39.5h  issued 01-10T07:30
+  largest forecast-too-low: [('01-08T19', -3550), ('01-08T18', -3243), ('01-05T13', -2867)]
+  top 50 hours (7% of hours) carry 22% of the total error
+  top 100 hours (13% of hours) carry 38% of the total error
+  top 150 hours (20% of hours) carry 51% of the total error
+  worst 5 days ['01-28', '01-12', '01-11', '01-21', '01-27'] carry 41% of the total error
+
+==========================================================================
+B. ATTRIBUTION
+==========================================================================
+  hours with actual >= 16,500 MW: 73 (9.8%); bias there 1939.9 MW; share of total error 10.9%
+  all other hours (671): bias 1727.0 MW   <- the bias is NOT mainly a top-of-range effect
+  flat-actual episodes (>=5 h, actual moves <=2%/h, forecast >=2.5 GW higher): 8 episodes, 64 hours (8.6%), 19.5% of total error; bias outside them 1539.8 MW
+    2026-01-02T01 -> 05h   5 h  actual  15923  forecast  18841  error  +2918
+    2026-01-03T00 -> 09h  10 h  actual  15009  forecast  18480  error  +3470
+    2026-01-11T11 -> 18h   8 h  actual  15752  forecast  19847  error  +4095
+    2026-01-11T23 -> 06h   8 h  actual  14099  forecast  20655  error  +6556
+    2026-01-12T07 -> 12h   6 h  actual  14706  forecast  20115  error  +5410
+    2026-01-21T21 -> 01h   5 h  actual  17078  forecast  20237  error  +3159
+    2026-01-22T02 -> 09h   8 h  actual  15649  forecast  18901  error  +3252
+    2026-01-27T00 -> 13h  14 h  actual  17233  forecast  20416  error  +3183
+  Reading: flat output at DIFFERENT levels while the forecast is far higher looks like an output limit
+  (constraint, curtailment, shutdown), not one fixed capacity ceiling. It explains only part of the bias.
+
+==========================================================================
+C. CALIBRATION CURVE (bins of FORECAST)
+==========================================================================
+  forecast   2000-  4000  n=  7  forecast   3517  actual   2394  bias   1123  actual/forecast 0.681
+  forecast   4000-  6000  n= 56  forecast   5083  actual   4356  bias    727  actual/forecast 0.857
+  forecast   6000-  8000  n= 77  forecast   7106  actual   7154  bias    -47  actual/forecast 1.007
+  forecast   8000- 10000  n=105  forecast   9118  actual   7817  bias   1301  actual/forecast 0.857
+  forecast  10000- 12000  n= 96  forecast  11079  actual   9430  bias   1650  actual/forecast 0.851
+  forecast  12000- 14000  n= 67  forecast  12963  actual  11227  bias   1735  actual/forecast 0.866
+  forecast  14000- 16000  n= 65  forecast  14877  actual  13644  bias   1233  actual/forecast 0.917
+  forecast  16000- 18000  n=113  forecast  17182  actual  15154  bias   2028  actual/forecast 0.882
+  forecast  18000- 20000  n=115  forecast  18773  actual  15827  bias   2946  actual/forecast 0.843
+  forecast  20000- 22000  n= 43  forecast  20514  actual  15952  bias   4562  actual/forecast 0.778
+  fit actual = a + b x forecast: all {'slope': 0.809, 'intercept': 743.5, 'r2': 0.867, 'n': 744} | forecast < 17 GW {'slope': 0.898, 'intercept': -91.3, 'r2': 0.801, 'n': 516}
+  Reading: actual/forecast near 0.85 across the mid range is a broad proportional shortfall; the extra
+  shortfall in the top bins is the episodic part. Neither pins down the mechanism.
+
+==========================================================================
+D. FORECASTS PUBLISHED AFTER THE HOUR (hindsight vintages)
+==========================================================================
+  published 24..36 h after the hour: n=   60  bias   1666 MW
+  published 12..24 h after the hour: n= 1013  bias   1865 MW
+  published 0..12 h after the hour: n= 2624  bias   1589 MW
+  Reading: still ~+1.6-1.9 GW a day after the hour, so WINDFOR is not re-anchored to the metered output.
+
+==========================================================================
+E. FUELHH vs AGWS (B1630) vs WINDFOR on identical UTC hours
+==========================================================================
+  hours with both series: 744 of 744
+  mean FUELHH 11284 MW | mean AGWS wind 13449 MW | AGWS - FUELHH +2166 MW | ratio 1.192
+  max hourly FUELHH 17756 | max hourly AGWS 22515  (is the apparent ceiling in both?)
+  WINDFOR minus FUELHH: bias +1748  MAE 2039
+  WINDFOR minus AGWS  : bias -418  MAE 1330
+  during the flat-actual episodes (64 h): forecast 19718 | AGWS 19652 | FUELHH 15759
+  decomposition on identical hours: bias vs FUELHH +1748 = bias vs AGWS -418 + (AGWS - FUELHH) +2166   [identity residual 0.0]
+  the 12 largest forecast-too-high hours, with AGWS alongside:
+    01-12T01  forecast   20942  FUELHH   14072  AGWS   18888   vs FUELHH  +6870   vs AGWS  +2054
+    01-12T00  forecast   20790  FUELHH   14032  AGWS   18975   vs FUELHH  +6758   vs AGWS  +1815
+    01-12T02  forecast   20876  FUELHH   14120  AGWS   18828   vs FUELHH  +6756   vs AGWS  +2048
+    01-12T03  forecast   20809  FUELHH   14163  AGWS   18808   vs FUELHH  +6646   vs AGWS  +2001
+    01-12T05  forecast   20583  FUELHH   14022  AGWS   18406   vs FUELHH  +6561   vs AGWS  +2177
+    01-12T04  forecast   20729  FUELHH   14224  AGWS   18794   vs FUELHH  +6504   vs AGWS  +1935
+    01-12T06  forecast   20435  FUELHH   14038  AGWS   18241   vs FUELHH  +6396   vs AGWS  +2194
+    01-28T04  forecast   11780  FUELHH    5509  AGWS    7498   vs FUELHH  +6271   vs AGWS  +4282
+    01-28T03  forecast   12620  FUELHH    6372  AGWS    8489   vs FUELHH  +6248   vs AGWS  +4131
+    01-27T23  forecast   17656  FUELHH   11472  AGWS   14608   vs FUELHH  +6184   vs AGWS  +3048
+    01-28T21  forecast   12032  FUELHH    6022  AGWS    7315   vs FUELHH  +6010   vs AGWS  +4717
+    01-11T23  forecast   20073  FUELHH   14120  AGWS   19175   vs FUELHH  +5953   vs AGWS   +898
+  How to read E (nothing here is concluded for you):
+   - AGWS ~ FUELHH and WINDFOR-minus-AGWS bias ~ WINDFOR-minus-FUELHH bias -> not a FUELHH coverage gap;
+     the gap sits between WINDFOR and measured output.
+   - AGWS ~ WINDFOR level (WINDFOR-minus-AGWS bias ~ 0) and AGWS well above FUELHH -> a coverage/definition
+     difference between FUELHH and the other two.
+   - AGWS also flat during the episodes -> a real output limit; AGWS rising there -> FUELHH under-measures.
+
+==========================================================================
+F. WHY AGWS AND FUELHH DIFFER (units, clock, aggregation, shape)
+==========================================================================
+  Wind Onshore  mean    5370 MW  max   11148 MW  hours 744
+  Wind Offshore mean    8079 MW  max   12399 MW  hours 744
+  clock check: correlation of FUELHH(t) with AGWS(t+shift); it should peak at shift 0 if both use the same clock
+    shift -3 h: n=744  correlation 0.9533
+    shift -2 h: n=744  correlation 0.9735
+    shift -1 h: n=744  correlation 0.9874
+    shift +0 h: n=744  correlation 0.993
+    shift +1 h: n=743  correlation 0.9863
+    shift +2 h: n=742  correlation 0.9711
+    shift +3 h: n=741  correlation 0.9495
+  gap by AGWS output level (quartiles of AGWS):
+    Q1: AGWS~  6553  FUELHH~  5658  gap    895 MW  FUELHH/AGWS 0.863
+    Q2: AGWS~ 11142  FUELHH~  9545  gap   1598 MW  FUELHH/AGWS 0.857
+    Q3: AGWS~ 16342  FUELHH~ 13798  gap   2544 MW  FUELHH/AGWS 0.844
+    Q4: AGWS~ 19760  FUELHH~ 16133  gap   3627 MW  FUELHH/AGWS 0.816
+  gap by hour of day (UTC): 00:+2304 01:+2269 02:+2235 03:+2203 04:+2175 05:+2121 06:+2108 07:+2111 08:+2107 09:+2108 10:+2087 11:+2081 12:+2090 13:+2082 14:+2063 15:+2053 16:+2085 17:+2130 18:+2216 19:+2257 20:+2279 21:+2295 22:+2275 23:+2246
+  Reading: unit/aggregation errors would show as a ~2x or ~0.5x ratio or a missing component; a clock offset as
+  a correlation peak away from shift 0. A gap that grows with output points to something that scales with wind (such as
+  wind outside FUELHH's metering boundary); a constant MW gap would point elsewhere.

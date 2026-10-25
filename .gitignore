@@ -1,0 +1,16 @@
+# dependencies and build output
+node_modules/
+dist/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+backend/static/
+.vercel/
+.env
+
+# investigation-only files (the dashboard uses FUELHH and WINDFOR only)
+backend/data/wind_agws.json.gz
+investigate_output*.txt
+backend/investigate_output*.txt
